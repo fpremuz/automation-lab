@@ -1,0 +1,18 @@
+# Environment variables
+docker/.env
+
+# n8n persistent data (contains credentials & DB)
+docker/n8n_data/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node temp (por si después agregás scripts)
+node_modules/
+
+# IDE
+.vscode/
