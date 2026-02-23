@@ -1,15 +1,22 @@
 # Automation Lab
 
-Laboratorio de automatización con n8n.
+This repository contains automation systems built using n8n.
 
-## Stack
-- Docker
-- n8n
-- Google Sheets
-- Email integrations
+## Projects
 
-## Objetivo
-Construir automatizaciones productizables para negocios.
+### 1. WhatsApp Lead Automation Demo
 
-## Proyectos
-- Lead Capture Automation (in progress)
+A production-style automation system that:
+
+- Captures incoming WhatsApp messages
+- Matches predefined keyword rules
+- Stores leads in Google Sheets
+- Automatically responds with structured JSON
+
+Built using:
+- n8n (self-hosted via Docker)
+- Google Sheets API
+- Webhooks
+- Custom JavaScript logic
+
+See project folder for full documentation.
