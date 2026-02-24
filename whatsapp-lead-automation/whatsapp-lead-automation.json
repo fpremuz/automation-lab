@@ -1,0 +1,241 @@
+{
+  "name": "whatsapp-lead-automation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp-demo",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -208,
+        80
+      ],
+      "id": "d9626c04-7d1b-4cdc-b776-dd7a36bf5f7f",
+      "name": "Webhook",
+      "webhookId": "557b7238-26a3-495c-a9c3-8ccd2d4e7e66"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Traemos mensaje directamente desde el nodo Webhook\nconst webhookData = $node[\"Webhook\"].json;\n\nconst message = webhookData.body?.message || \"\";\nconst from = webhookData.body?.from || \"\";\n\nlet response = \"Lo siento, no entendí tu mensaje.\";\n\n// Las rules vienen del input actual (Google Sheets)\nfor (const item of items) {\n  const keyword = item.json.keyword;\n  const ruleResponse = item.json.response;\n\n  if (keyword && message.toLowerCase().includes(keyword.toLowerCase())) {\n    response = ruleResponse;\n    break;\n  }\n}\n\nreturn [\n  {\n    json: {\n      from,\n      message,\n      response\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        80
+      ],
+      "id": "9bf7d9de-e724-469c-b489-bb6ee391c447",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M",
+          "mode": "list",
+          "cachedResultName": "whatsapp automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 265630532,
+          "mode": "list",
+          "cachedResultName": "rules",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M/edit#gid=265630532"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -32,
+        80
+      ],
+      "id": "bd12409f-c1c7-4c79-bb24-14857ac1c837",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PvmeLZUgNB3g38IZ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M",
+          "mode": "list",
+          "cachedResultName": "whatsapp automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "timestamp": "={{$now}}",
+            "from": "={{ $json.from }}",
+            "message": "={{ $json.message }}",
+            "response": "={{ $json.response }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "from",
+              "displayName": "from",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "response",
+              "displayName": "response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        304,
+        80
+      ],
+      "id": "96670409-ec35-43ca-963e-30a5c22ba36e",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PvmeLZUgNB3g38IZ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        496,
+        80
+      ],
+      "id": "87e56790-a6be-4a6b-8642-8757f550cc93",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "content": "## Whatsapp Lead Automation\nThis workflow triggers when a message is received (e.g. whatsapp), and answers a fixed response written in google sheets based on the keyword received",
+        "height": 304,
+        "width": 976,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -256,
+        -32
+      ],
+      "typeVersion": 1,
+      "id": "3c306add-f1d3-4710-a3ba-626b0c13bd92",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "1972a9ec-badb-48b8-94eb-0580e4c40cf1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ad0183ed6195612924e774be2176b57f24a88f37cd6e6774dc8166327f257094"
+  },
+  "id": "Q5sPZYDfY0ROB0yI",
+  "tags": []
+}
