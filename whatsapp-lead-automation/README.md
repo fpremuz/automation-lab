@@ -6,10 +6,11 @@ This system simulates a WhatsApp automation backend using n8n.
 
 It demonstrates how businesses can:
 
-- Automatically respond to incoming messages
-- Match messages against keyword-based rules
-- Store leads in Google Sheets
-- Return structured responses
+- Receives a webhook request (simulating WhatsApp incoming message)
+- Reads predefined rules from Google Sheets
+- Matches keywords dynamically
+- Logs the interaction
+- Returns an automated response
 
 ## Architecture
 
@@ -51,3 +52,4 @@ Tech Stack:
 
 Author:
 - Built by Francisco Premuz
+
