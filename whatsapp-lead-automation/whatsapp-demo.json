@@ -1,0 +1,892 @@
+{
+  "name": "whatsapp-demo",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp-demo",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -240,
+        304
+      ],
+      "id": "d9626c04-7d1b-4cdc-b776-dd7a36bf5f7f",
+      "name": "Webhook",
+      "webhookId": "557b7238-26a3-495c-a9c3-8ccd2d4e7e66"
+    },
+    {
+      "parameters": {
+        "content": "## Whatsapp Lead Automation\n",
+        "height": 896,
+        "width": 1056,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -256,
+        -96
+      ],
+      "typeVersion": 1,
+      "id": "3c306add-f1d3-4710-a3ba-626b0c13bd92",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.mensaje_lower}}",
+                    "rightValue": "tenes",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "id": "91ef7cd9-c02c-4d6f-932f-76a02e521116"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "STOCK"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "6e9d4bbe-69fe-49e5-94b7-95755be81d07",
+                    "leftValue": "={{$json.mensaje_lower}}",
+                    "rightValue": "disponible",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "STOCK"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "bd15d446-e06f-42a2-b811-1fdd3e9e8fa8",
+                    "leftValue": "={{$json.mensaje_lower}}",
+                    "rightValue": "talle",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "STOCK"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "110ef438-c807-4ce5-ae25-b1bb8e9b9ba2",
+                    "leftValue": "={{$json.mensaje_lower}}",
+                    "rightValue": "precio",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "PRECIO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "47286c40-0e27-4a53-baa8-5a25b77270fd",
+                    "leftValue": "={{$json.mensaje_lower}}",
+                    "rightValue": "envio",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ENVIO"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        256
+      ],
+      "id": "bea04d16-128b-4b92-a399-25fa6bdd7a6d",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5424eff6-dc81-46b7-9cf9-f60017c6e9b1",
+              "name": "mensaje_lower",
+              "value": "={{$json.body.mensaje.toLowerCase()}}",
+              "type": "string"
+            },
+            {
+              "id": "a5d09382-ad00-46c3-8ff4-6df797f4063b",
+              "name": "telefono",
+              "value": "={{$json.body.telefono}}",
+              "type": "string"
+            },
+            {
+              "id": "79c67fed-933d-4ee5-b5ef-d3604fee8675",
+              "name": "nombre",
+              "value": "={{$json.body.nombre}}",
+              "type": "string"
+            },
+            {
+              "id": "6bb35c00-3bdc-4a42-b2e1-95365f4dca12",
+              "name": "=mensaje",
+              "value": "={{ $json.body.mensaje }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -96,
+        304
+      ],
+      "id": "4e84c40f-348c-4942-b58e-3e9cbaba8cb6",
+      "name": "normalizar"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d903bff-353b-43d7-8119-b0ec79738701",
+              "name": "producto",
+              "value": "={{   $json.mensaje_lower.includes(\"vestido\") ? \"Vestido negro\" :   $json.mensaje_lower.includes(\"blazer\") ? \"Blazer beige\" :   $json.mensaje_lower.includes(\"jean\") ? \"Jeans tiro alto\" :   \"Producto no identificado\" }}",
+              "type": "string"
+            },
+            {
+              "id": "4a3f0d6b-e857-46a0-bd47-8a1ca2910941",
+              "name": "talle",
+              "value": "={{   $json.mensaje_lower.includes(\" s\") ? \"S\" :   $json.mensaje_lower.includes(\" m\") ? \"M\" :   $json.mensaje_lower.includes(\" l\") ? \"L\" :   \"\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        304
+      ],
+      "id": "70ae4b43-cec1-411e-bdd2-0485d350dfbd",
+      "name": "detectar producto"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bbe69bc1-ace6-4bcd-9eb2-f02d48bd991d",
+              "name": "respuesta",
+              "value": "=Hola 😊 Sí, tenemos disponible el {{$json.producto}} en talle {{$json.talle}}. ¿Querés que te pase fotos reales o info de envío?",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        16
+      ],
+      "id": "13026f16-016a-48ec-bd10-e36c03b77da8",
+      "name": "generar respuesta"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bbe69bc1-ace6-4bcd-9eb2-f02d48bd991d",
+              "name": "respuesta",
+              "value": "=Hola 😊 Sí, tenemos disponible el {{$json.producto}} en talle {{$json.talle}}. ¿Querés que te pase fotos reales o info de envío?",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        560
+      ],
+      "id": "2217ed25-2515-456a-a61c-f1e87f192671",
+      "name": "generar respuesta2"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"respuesta\": \"{{ $json.respuesta }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        576,
+        80
+      ],
+      "id": "8c69955c-4f4c-4743-a617-3124d4fd080d",
+      "name": "responder wsp"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M",
+          "mode": "list",
+          "cachedResultName": "whatsapp automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "leads ropa demo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Telefono": "={{ $json.telefono }}",
+            "Nombre": "={{ $json.nombre }}",
+            "UltimoMensaje": "={{ $json.mensaje }}",
+            "Fecha": "={{ $now }}",
+            "Producto": "={{ $json.producto }}",
+            "Estado": "Nuevo",
+            "Talle": "={{ $json.talle }}",
+            "Ciudad": "Buenos Aires"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Telefono",
+              "displayName": "Telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Producto",
+              "displayName": "Producto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Talle",
+              "displayName": "Talle",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ciudad",
+              "displayName": "Ciudad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UltimoMensaje",
+              "displayName": "UltimoMensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        576,
+        -64
+      ],
+      "id": "b4687a25-df40-47bb-b8da-ae0db7a8b0a7",
+      "name": "generar lead",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PvmeLZUgNB3g38IZ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bbe69bc1-ace6-4bcd-9eb2-f02d48bd991d",
+              "name": "respuesta",
+              "value": "=Hola 😊 Sí, tenemos disponible el {{$json.producto}} en talle {{$json.talle}}. ¿Querés que te pase fotos reales o info de envío?",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        272
+      ],
+      "id": "fcefd30c-ed52-48fb-8d9c-13b781d1af75",
+      "name": "generar respuesta3"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M",
+          "mode": "list",
+          "cachedResultName": "whatsapp automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "leads ropa demo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Telefono": "={{ $json.telefono }}",
+            "Nombre": "={{ $json.nombre }}",
+            "UltimoMensaje": "={{ $json.mensaje }}",
+            "Fecha": "={{ $now }}",
+            "Producto": "={{ $json.producto }}",
+            "Estado": "Nuevo",
+            "Talle": "={{ $json.talle }}",
+            "Ciudad": "Buenos Aires"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Telefono",
+              "displayName": "Telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Producto",
+              "displayName": "Producto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Talle",
+              "displayName": "Talle",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ciudad",
+              "displayName": "Ciudad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UltimoMensaje",
+              "displayName": "UltimoMensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        576,
+        496
+      ],
+      "id": "f63d460f-2c2b-45c7-b185-c6e9dccfe4e0",
+      "name": "generar lead2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PvmeLZUgNB3g38IZ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M",
+          "mode": "list",
+          "cachedResultName": "whatsapp automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "leads ropa demo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1obnvKRXIiUtta9n8RyIdIQ-SxcrLYWPZWHsvfa-Ko9M/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Telefono": "={{ $json.telefono }}",
+            "Nombre": "={{ $json.nombre }}",
+            "UltimoMensaje": "={{ $json.mensaje }}",
+            "Fecha": "={{ $now }}",
+            "Producto": "={{ $json.producto }}",
+            "Estado": "Nuevo",
+            "Talle": "={{ $json.talle }}",
+            "Ciudad": "Buenos Aires"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Telefono",
+              "displayName": "Telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Producto",
+              "displayName": "Producto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Talle",
+              "displayName": "Talle",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Ciudad",
+              "displayName": "Ciudad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UltimoMensaje",
+              "displayName": "UltimoMensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        576,
+        208
+      ],
+      "id": "13bf2cea-3f73-4b1c-8829-418902225d93",
+      "name": "generar lead1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PvmeLZUgNB3g38IZ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"respuesta\": \"{{ $json.respuesta }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        576,
+        352
+      ],
+      "id": "e4a28e62-2891-4493-980e-4b97e19224fc",
+      "name": "responder wsp1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"respuesta\": \"{{ $json.respuesta }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        576,
+        640
+      ],
+      "id": "2a6d7092-0043-40dd-9ab5-f52f588099a8",
+      "name": "responder wsp2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "normalizar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "generar respuesta",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "generar respuesta",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "generar respuesta",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "generar respuesta3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "generar respuesta2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "normalizar": {
+      "main": [
+        [
+          {
+            "node": "detectar producto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "detectar producto": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "generar respuesta": {
+      "main": [
+        [
+          {
+            "node": "generar lead",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "responder wsp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "generar respuesta2": {
+      "main": [
+        [
+          {
+            "node": "generar lead2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "responder wsp2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "generar lead": {
+      "main": [
+        []
+      ]
+    },
+    "generar respuesta3": {
+      "main": [
+        [
+          {
+            "node": "generar lead1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "responder wsp1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "generar lead2": {
+      "main": [
+        []
+      ]
+    },
+    "generar lead1": {
+      "main": [
+        []
+      ]
+    },
+    "responder wsp": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "86dc33a1-0a75-4cb6-b329-818d6744f9c6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ad0183ed6195612924e774be2176b57f24a88f37cd6e6774dc8166327f257094"
+  },
+  "id": "Q5sPZYDfY0ROB0yI",
+  "tags": []
+}
