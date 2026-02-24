@@ -1,10 +1,9 @@
-# WhatsApp Lead Automation Demo
-
+# 🤖 WhatsApp Keyword Automation Demo
 ## Overview
 
-This system simulates a WhatsApp automation backend using n8n.
+This project demonstrates a WhatsApp-style automation system built with n8n.
 
-It demonstrates how businesses can:
+The workflow:
 
 - Receives a webhook request (simulating WhatsApp incoming message)
 - Reads predefined rules from Google Sheets
@@ -12,44 +11,50 @@ It demonstrates how businesses can:
 - Logs the interaction
 - Returns an automated response
 
-## Architecture
+## 🔄 Workflow Architecture
 
-Webhook → Google Sheets (rules) → Code logic → Google Sheets (lead capture) → JSON Response
+Webhook
+→ Google Sheets (Read Rules)
+→ Code (Match Keywords)
+→ Google Sheets (Log Interaction)
+→ Respond to Webhook
 
-## Example Request
+## 🧠 Features
 
-```json
-{
-  "from": "+541112345678",
-  "message": "precio"
-}
+- Dynamic keyword matching
+- Rule management via Google Sheets (no code changes required)
+- Logging system
+- Production-ready webhook response
+- Docker-based local deployment
+
+## 🚀 How to Run Locally
+
+Install Docker
+
+Run:
+
+```
+docker compose up -d
 ```
 
-## Example Response
+Open:
 
-```json
-{
-  "from": "+541112345678",
-  "message": "precio",
-  "response": "Nuestro precio es $100"
-}
+```
+http://localhost:5678
 ```
 
-## Use Case
+Import the workflow JSON
 
-Ideal for:
-- Small businesses
-- Clinics
-- Real estate agencies
--E-commerce stores
--Service providers receiving high WhatsApp volume
+🧪 Test Request Example
+```
+curl -X POST http://localhost:5678/webhook/whatsapp-demo \
+-H "Content-Type: application/json" \
+-d '{"from":"+123456789","message":"precio"}'
+```
 
-Tech Stack:
-- n8n (self-hosted)
-- Google Sheets API
-- Docker
-- JavaScript (custom logic node)
+## 💼 Use Cases
 
-Author:
-- Built by Francisco Premuz
-
+- WhatsApp customer support automation
+- Lead qualification
+- FAQ automation
+- Appointment booking pre-filter
