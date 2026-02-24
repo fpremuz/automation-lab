@@ -58,3 +58,5 @@ curl -X POST http://localhost:5678/webhook/whatsapp-demo \
 - Lead qualification
 - FAQ automation
 - Appointment booking pre-filter
+
+Watch the demo here: https://youtu.be/FoLPf41DyoQ
